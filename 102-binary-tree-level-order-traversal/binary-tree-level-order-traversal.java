@@ -13,37 +13,27 @@
  *     }
  * }
  */
- class Pair{
-    TreeNode node;
-    int level;
-    Pair(TreeNode node,int level){
-       this.node=node;
-       this.level=level;
-    }
- }
+
 class Solution {
     public List<List<Integer>> levelOrder(TreeNode root) {
         if(root==null) return new ArrayList<>(); 
         List<List<Integer>> ans = new ArrayList<>();
-        Queue<Pair> q=new LinkedList<>();
-        List<Integer> temp=new ArrayList<>();
-        int currlevel=0;
-        q.add(new Pair(root,0));
-        temp.add(root.val);
-        while(q.size()>0){
-            Pair front=q.remove();
-            if(front.level!=currlevel){
-                currlevel++;
-                ans.add(temp);
-                temp =new ArrayList<>();
-            }
-            if(front.node.left!=null) q.add(new Pair(front.node.left,front.level+1));
-            if(front.node.right!=null) q.add(new Pair(front.node.right,front.level+1));
-            if(currlevel!=0){
-                temp.add(front.node.val);
-            }
-        }
-        ans.add(temp);
-        return ans;
+       Queue<TreeNode> q = new LinkedList<>();
+q.add(root);
+
+while (!q.isEmpty()) {
+    int size = q.size();
+    List<Integer> level = new ArrayList<>();
+
+    for (int i = 0; i < size; i++) {
+        TreeNode node = q.remove();
+        level.add(node.val);
+
+        if (node.left != null) q.add(node.left);
+        if (node.right != null) q.add(node.right);
+    }
+
+    ans.add(level);
+}return ans;
     }
 }
