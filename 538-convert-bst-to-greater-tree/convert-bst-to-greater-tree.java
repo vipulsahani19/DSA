@@ -14,23 +14,20 @@
  * }
  */
 class Solution {
-    void inorder(TreeNode root,ArrayList<TreeNode> arr){
+    int sum;
+    void revinorder(TreeNode root){
         if(root==null) return;
-        inorder(root.left,arr);
-        arr.add(root);
-        inorder(root.right,arr);
+        revinorder(root.right);
+        int val=root.val;
+        sum+=val;
+        root.val=sum;
+        revinorder(root.left);
+        
     }
 
     public TreeNode convertBST(TreeNode root) {
         if(root==null) return root;
-        ArrayList<TreeNode> arr=new ArrayList<>();
-        inorder(root,arr);
-        Collections.reverse(arr);
-        int sum=arr.get(0).val;
-        for(int i=1;i<arr.size();i++){
-            int val=arr.get(i).val;
-            sum+=val;
-            arr.get(i).val=sum;
-        }return root;
+        revinorder(root);
+        return root;
     }
 }
