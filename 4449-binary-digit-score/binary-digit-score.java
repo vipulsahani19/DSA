@@ -13,19 +13,9 @@ class Solution {
 
         return ans;
     }
-    int countOnes(int n){
-        int ans=0;
-        while(n>0){
-            if(n%10==1) ans++;
-            n/=10;
-        }
-        return ans;
-    }
     public int calculateScore(int a, int b) {
-        int s1=convertBinary(a);
-        int s2=convertBinary(b);
-        // s1=countOnes(s1);
-        // s2=countOnes(s2);
+        int s1=Integer.bitCount(a);
+        int s2=Integer.bitCount(b);
         if(s1>=s2) return s1*s2;
         return s2/s1;
     }
